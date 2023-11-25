@@ -1,0 +1,17 @@
+< THE SYMBOL TABLE >  final.bin  --  emu8086 assembler version: 4.08 
+===================================================================================================
+Name                     	Offset    	Size      	Type      	Segment   
+===================================================================================================
+MY_DATA                  	00000     	-5        	SEGMENT   	(ITSELF)  
+MYCODE                   	00000     	-5        	SEGMENT   	(ITSELF)  
+START                    	00005     	-1        	LABEL     	mycode    
+AGAIN                    	0003D     	-1        	LABEL     	mycode    
+LIGHT_ON                 	00066     	-1        	LABEL     	mycode    
+LIGHT_OFF                	00072     	-1        	LABEL     	mycode    
+DISPLAY                  	0007E     	-1        	LABEL     	mycode    
+DELAY_S                  	000AC     	-1        	NEAR      	mycode    
+RPT2                     	000B0     	-1        	LABEL     	mycode    
+===================================================================================================
+[ 23-11-2023  --  02:57:38 ] 
+< END >
+ 

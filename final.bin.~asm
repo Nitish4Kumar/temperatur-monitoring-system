@@ -1,0 +1,135 @@
+my_data segment
+CONTROL EQU 06H
+PORTA    EQU 00H
+PB    EQU 02H
+PC    EQU 04H
+
+my_data ends
+
+
+
+mycode segment
+
+
+mov ax,my_data
+mov ds,ax
+
+
+Start:
+mov [1000h], 0C0H
+mov [1001h], 0F9H
+mov [1002h], 0A4H
+mov [1003h], 0B0H
+mov [1004h], 099H
+mov [1005h], 092H
+mov [1006h], 082H
+mov [1007h], 0F8H
+mov [1008h], 080H
+mov [1009h], 090H
+
+
+mov al,10000010B
+mov DX,CONTROL
+out dx,al
+
+
+again:mov dx,PB
+in ax, dx
+mov [2000h], al
+
+;convert to decimal number
+mov CL, 0AH
+
+mov DX, 00H
+div CX
+mov [1031h],dl
+inc SI
+mov DX,00H
+div CL
+mov [1032h],ah
+
+
+
+
+mov al, [2000h]
+cmp al, 26D
+jc light_on
+
+cmp al, 31D
+jnc light_off
+
+jmp display
+
+
+
+
+light_on: mov [1200h], 05h
+mov [1201h], 06h
+jmp display
+
+light_off:
+mov [1200h], 01h
+mov [1201h], 02h
+jmp display
+
+
+display: mov al, [1200h]
+mov dx, PC
+out dx, al
+
+
+
+
+
+mov bh, 10h
+mov bl, [1032h]
+mov al, [bx]
+mov dx, PORTA
+out dx, al
+
+
+call DELAY_S
+
+mov al, [1201h]
+mov dx, PC
+out dx, al
+
+mov bh, 10h
+mov bl, [1031h]
+mov al, [bx]
+mov dx, PORTA
+out dx, al
+
+
+call DELAY_S
+
+
+jmp again
+
+
+
+
+
+
+DELAY_S PROC  NEAR
+
+PUSH CX
+
+MOV CX, 0FFH
+RPT2:   LOOP RPT2
+
+POP CX
+
+RET
+DELAY_S ENDP
+
+
+
+
+mycode ends
+end
+
+
+
+
+; [SOURCE]: C:\Users\knowv\Downloads\backup.asm
